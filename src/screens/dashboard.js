@@ -18,7 +18,12 @@ const Dashboard = props => {
       <StatusBar translucent backgroundColor="transparent" />
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => props.navigation.navigate('Logs', {entities: []})}>
+        onPress={() =>
+          props.navigation.navigate('Logs', {
+            entities: [],
+            user: props.route.params.user,
+          })
+        }>
         <View style={styles.button}>
           <View style={styles.icon}>
             <MaterialCommunityIcons

@@ -12,7 +12,10 @@ const Entity = props => {
     <TouchableOpacity
       activeOpacity={0.5}
       onPress={() =>
-        props.navigation.navigate('DetailedLogs', {record: record})
+        props.navigation.navigate('DetailedLogs', {
+          record: record,
+          user: props.route.params.user,
+        })
       }>
       <View style={styles.entity}>
         <View

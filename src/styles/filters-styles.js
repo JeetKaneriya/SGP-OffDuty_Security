@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     height: height * 0.8,
     backgroundColor: '#EEEBDD',
     borderRadius: 20,
-    elevation: 10,
+    elevation: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',

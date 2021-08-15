@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import styles from '../styles/profile-styles';
+import Menu from '../components/menu';
 
 const launchCam = async setImage => {
   try {
@@ -73,6 +74,7 @@ const launchGal = setImage => {
 
 const Profile = props => {
   const user = props.route.params.user;
+  console.log(props.route.params.user);
 
   const {width, height} = Dimensions.get('screen');
 
@@ -86,6 +88,22 @@ const Profile = props => {
   }
 
   const [image, setImage] = React.useState(userImg);
+
+  const [menu, setMenu] = React.useState(false);
+  const menuState = () => setMenu(previousState => !previousState);
+
+  const onLogsPress = () => {
+    menuState();
+    props.navigation.navigate('Logs', {
+      entities: [],
+      user: props.route.params.user,
+    });
+  };
+
+  const onProfilePress = () => {
+    menuState();
+    props.navigation.navigate('Profile', {user: props.route.params.user});
+  };
 
   return (
     <View style={styles.container}>
@@ -101,7 +119,7 @@ const Profile = props => {
               alignItems: 'center',
               justifyContent: 'space-evenly',
             }}>
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity activeOpacity={0.5} onPress={menuState}>
               <Ionicons name={'ios-menu-outline'} size={40} color={'#EEEBDD'} />
             </TouchableOpacity>
             <TouchableOpacity
@@ -122,6 +140,35 @@ const Profile = props => {
         end={{x: 1, y: 1}}
         colors={['#b40000', '#810000', '#4e0000']}
         style={styles.subContainer}>
+        {menu ? (
+          <Menu {...props}>
+            <TouchableOpacity activeOpacity={0.5} onPress={onLogsPress}>
+              <View
+                style={{
+                  width: width * 0.3,
+                  paddingVertical: height * 0.01,
+                  backgroundColor: '#EEEBDD',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{color: '#444444', fontSize: 20}}>LOGS</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.5} onPress={onProfilePress}>
+              <View
+                style={{
+                  width: width * 0.3,
+                  paddingVertical: height * 0.01,
+                  backgroundColor: '#EEEBDD',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: height * 0.05,
+                }}>
+                <Text style={{color: '#444444', fontSize: 20}}>PROFILE</Text>
+              </View>
+            </TouchableOpacity>
+          </Menu>
+        ) : null}
         <Text style={{color: '#EEEBDD', fontSize: 50}}>PROFILE</Text>
         <View
           style={{

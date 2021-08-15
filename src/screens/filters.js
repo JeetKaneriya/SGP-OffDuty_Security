@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import styles from '../styles/filters-styles';
+import Menu from '../components/menu';
 
 const applyFilters = (
   entities,
@@ -103,7 +104,10 @@ const clearFilters = (entities, props) => {
   for (let i = 0; i < entities.length; i++) {
     entities[i].visibility = 1;
   }
-  props.navigation.navigate('Logs', {entities: entities});
+  props.navigation.navigate('Logs', {
+    entities: entities,
+    user: props.route.params.user,
+  });
 };
 
 const Filters = props => {
@@ -134,6 +138,19 @@ const Filters = props => {
   const [houseInput1, setHouseInput1] = React.useState('');
   const [houseInput2, setHouseInput2] = React.useState('');
 
+  const [menu, setMenu] = React.useState(false);
+  const menuState = () => setMenu(previousState => !previousState);
+
+  const onLogsPress = () => {
+    menuState();
+    props.navigation.navigate('Logs', {entities: entities});
+  };
+
+  const onProfilePress = () => {
+    menuState();
+    props.navigation.navigate('Profile', {user: props.route.params.user});
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
@@ -148,7 +165,7 @@ const Filters = props => {
               alignItems: 'center',
               justifyContent: 'space-evenly',
             }}>
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity activeOpacity={0.5} onPress={menuState}>
               <Ionicons
                 name={'ios-menu-outline'}
                 size={44}
@@ -174,6 +191,35 @@ const Filters = props => {
         end={{x: 1, y: 1}}
         colors={['#b40000', '#810000', '#4e0000']}
         style={styles.subContainer}>
+        {menu ? (
+          <Menu {...props}>
+            <TouchableOpacity activeOpacity={0.5} onPress={onLogsPress}>
+              <View
+                style={{
+                  width: width * 0.3,
+                  paddingVertical: height * 0.01,
+                  backgroundColor: '#EEEBDD',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{color: '#444444', fontSize: 20}}>LOGS</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.5} onPress={onProfilePress}>
+              <View
+                style={{
+                  width: width * 0.3,
+                  paddingVertical: height * 0.01,
+                  backgroundColor: '#EEEBDD',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: height * 0.05,
+                }}>
+                <Text style={{color: '#444444', fontSize: 20}}>PROFILE</Text>
+              </View>
+            </TouchableOpacity>
+          </Menu>
+        ) : null}
         <View style={styles.card}>
           <Text style={[styles.text, {fontSize: 40}]}>FILTERS</Text>
           <View
