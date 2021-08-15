@@ -32,7 +32,9 @@ const Dashboard = props => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => props.navigation.navigate('Profile')}>
+        onPress={() =>
+          props.navigation.navigate('Profile', {user: props.route.params.user})
+        }>
         <View style={styles.button}>
           <View style={styles.icon}>
             <FontAwesome5

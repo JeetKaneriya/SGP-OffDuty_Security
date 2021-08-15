@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textInput: {
+    width: '90%',
+    height: '90%',
+    color: '#444444',
+    fontSize: 15,
+  },
 });
 
 export default styles;

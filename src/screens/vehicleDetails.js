@@ -16,6 +16,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from '../styles/vehicleDetails-styles';
 
 const VehicleDetails = props => {
+  const user = props.route.params.user;
+
   const {width, height} = Dimensions.get('screen');
 
   return (
@@ -64,7 +66,9 @@ const VehicleDetails = props => {
               paddingHorizontal: width * 0.05,
               paddingVertical: height * 0.02,
             }}>
-            <Text style={styles.text}>NUMBER OF VEHICLES : 2</Text>
+            <Text style={styles.text}>
+              NUMBER OF VEHICLES : {user.noOfVehicles}
+            </Text>
           </View>
           <View
             style={{

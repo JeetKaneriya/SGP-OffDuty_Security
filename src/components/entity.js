@@ -20,7 +20,7 @@ const Entity = props => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={styles.text}>{record.carNumber}</Text>
+          <Text style={styles.text}>{record.carNo}</Text>
         </View>
         <View
           style={{

@@ -72,11 +72,20 @@ const launchGal = setImage => {
 };
 
 const Profile = props => {
+  const user = props.route.params.user;
+
   const {width, height} = Dimensions.get('screen');
 
-  const [image, setImage] = React.useState(
-    'https://cdn.iconscout.com/icon/free/png-512/user-circle-plus-3605378-3005458.png',
-  );
+  var userImg = '';
+
+  if (user.pic !== undefined) {
+    userImg = 'https://0f7ee737ce12.ngrok.io' + user.pic;
+  } else {
+    userImg =
+      'https://cdn.iconscout.com/icon/free/png-512/user-circle-plus-3605378-3005458.png';
+  }
+
+  const [image, setImage] = React.useState(userImg);
 
   return (
     <View style={styles.container}>
@@ -197,8 +206,11 @@ const Profile = props => {
                 height: height * 0.04,
                 backgroundColor: '#EEEBDD',
                 borderRadius: 20,
-              }}
-            />
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.text}>{user.name}</Text>
+            </View>
           </View>
           <View
             style={{
@@ -222,13 +234,20 @@ const Profile = props => {
                 height: height * 0.04,
                 backgroundColor: '#EEEBDD',
                 borderRadius: 20,
-              }}
-            />
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.text}>{user.houseNo}</Text>
+            </View>
           </View>
         </View>
         <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() => props.navigation.navigate('VehicleDetails')}>
+          onPress={() =>
+            props.navigation.navigate('VehicleDetails', {
+              user: user,
+            })
+          }>
           <View
             style={{
               borderWidth: 5,

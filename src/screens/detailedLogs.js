@@ -67,7 +67,7 @@ const DetailedLogs = props => {
               paddingHorizontal: width * 0.05,
               paddingVertical: height * 0.02,
             }}>
-            <Text style={styles.text}>CAR NUMBER : {record.carNumber}</Text>
+            <Text style={styles.text}>CAR NUMBER : {record.carNo}</Text>
           </View>
           <View
             style={{
@@ -79,7 +79,7 @@ const DetailedLogs = props => {
               paddingVertical: height * 0.01,
               marginTop: height * 0.02,
             }}>
-            <Text style={styles.text}>House No.: {record.houseNumber}</Text>
+            <Text style={styles.text}>House No.: {record.houseNo}</Text>
           </View>
           <View
             style={{
@@ -91,7 +91,7 @@ const DetailedLogs = props => {
               paddingVertical: height * 0.01,
               marginTop: height * 0.02,
             }}>
-            <Text style={styles.text}>Full Name : {record.fullName}</Text>
+            <Text style={styles.text}>Full Name : {record.name}</Text>
           </View>
           <View
             style={{
@@ -103,7 +103,7 @@ const DetailedLogs = props => {
               paddingVertical: height * 0.01,
               marginTop: height * 0.02,
             }}>
-            <Text style={styles.text}>Mobile No.: {record.mobileNumber}</Text>
+            <Text style={styles.text}>Mobile No.: {record.mobileNo}</Text>
           </View>
           <View
             style={{

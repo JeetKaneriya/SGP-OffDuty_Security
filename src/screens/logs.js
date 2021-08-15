@@ -11,17 +11,28 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import axios from 'axios';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import styles from '../styles/logs-styles';
 import Entity from '../components/entity';
-import entities from '../components/data';
 
 const Logs = props => {
   const {width} = Dimensions.get('screen');
-  const filEntities = [];
+  var filEntities = [];
+  const [entities, setEntities] = React.useState([]);
+
+  axios
+    .get('https://75ba14ff8956.ngrok.io/feed/')
+    .then(function (response) {
+      setEntities(JSON.parse(response.request.response).entities);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   if (props.route.params.entities.length > 0) {
     entities.splice(0, entities.length, ...props.route.params.entities);
@@ -32,6 +43,8 @@ const Logs = props => {
       filEntities.push(entities[i]);
     }
   }
+
+  filEntities = [].concat(filEntities).reverse();
 
   return (
     <View style={styles.container}>
