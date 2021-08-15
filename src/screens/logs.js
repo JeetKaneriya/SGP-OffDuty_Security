@@ -25,7 +25,6 @@ const Logs = props => {
   const {width, height} = Dimensions.get('screen');
   var filEntities = [];
   const [entities, setEntities] = React.useState([]);
-  console.log(props.route.params.user);
 
   const [menu, setMenu] = React.useState(false);
   const menuState = () => setMenu(previousState => !previousState);
