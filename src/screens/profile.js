@@ -74,7 +74,6 @@ const launchGal = setImage => {
 
 const Profile = props => {
   const user = props.route.params.user;
-  console.log(props.route.params.user);
 
   const {width, height} = Dimensions.get('screen');
 

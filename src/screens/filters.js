@@ -64,7 +64,7 @@ const applyFilters = (
 
   if (carInput) {
     for (let i = 0; i < entities.length; i++) {
-      if (entities[i].carNumber.toLowerCase() !== carInput.toLowerCase()) {
+      if (entities[i].carNo.toLowerCase() !== carInput.toLowerCase()) {
         entities[i].visibility = 0;
       }
     }
@@ -72,7 +72,7 @@ const applyFilters = (
 
   if (nameInput) {
     for (let i = 0; i < entities.length; i++) {
-      if (entities[i].fullName.toLowerCase() !== nameInput.toLowerCase()) {
+      if (entities[i].name.toLowerCase() !== nameInput.toLowerCase()) {
         entities[i].visibility = 0;
       }
     }
@@ -82,15 +82,15 @@ const applyFilters = (
     if (houseInput1) {
       for (let i = 0; i < entities.length; i++) {
         if (
-          entities[i].blockNumber.toLowerCase() !== houseInput1.toLowerCase() &&
-          entities[i].houseNumber !== houseInput2
+          entities[i].blockNo.toLowerCase() !== houseInput1.toLowerCase() &&
+          entities[i].houseNo !== houseInput2
         ) {
           entities[i].visibility = 0;
         }
       }
     } else {
       for (let i = 0; i < entities.length; i++) {
-        if (entities[i].houseNumber !== houseInput2) {
+        if (entities[i].houseNo !== houseInput2) {
           entities[i].visibility = 0;
         }
       }

@@ -24,7 +24,7 @@ const Login = props => {
   const checkCred = () => {
     console.log('Sending Data..');
     axios
-      .post('https://1bd7e1c69a8d.ngrok.io/login/', {
+      .post('https://e60ef4f7550b.ngrok.io/login/', {
         username: user,
         password: pass,
       })
