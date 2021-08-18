@@ -1,23 +1,28 @@
 from tkinter import *
 from win32api import GetSystemMetrics, error
 from datetime import datetime
-import sqlite3
+import psycopg2
 
 
 def callback(entity, entry0):
     if(len(entity.get()) >= 10):
 
-        database = r"C:\\Users\\jeet3\\Documents\\ReactNative\\OffDutySecurity\\backend\\OffDutySecurity\\db.sqlite3"
         try:
-            conn = sqlite3.connect(database)
+            conn = psycopg2.connect(
+                database="d77d0i79qgv23i",
+                user='edbavjnclwyaoi',
+                password='e3e15b5d5bed3f70c05ee5cca76a9c54106dc1188e566283dcfe7c2ebe3cf75e',
+                host='ec2-18-235-4-83.compute-1.amazonaws.com',
+                port= '5432'
+            )
         except:
             print(error)
 
         cur = conn.cursor()
-        cur.execute("SELECT * FROM MyApp_rfiddetails")
+        cur.execute('SELECT * FROM "MyApp_rfiddetails"')
         rfidRows = cur.fetchall()
         
-        cur.execute("SELECT * FROM MyApp_userdetails")
+        cur.execute('SELECT * FROM "MyApp_userdetails"')
         userRows = cur.fetchall()
 
         for rfidRow in rfidRows:
@@ -28,7 +33,7 @@ def callback(entity, entry0):
                         date = dt.strftime('%d-%m-%Y')
                         time = dt.strftime('%H:%M:%S')
 
-                        cur.execute("INSERT INTO MyApp_entities (name,houseNo,mobileNo,rfid,carNo,vehicleClass,date,time,visibility) VALUES (\'" + userRow[1] + "\',\'" + userRow[3] + "\',\'" + userRow[6] + "\',\'" + rfidRow[1] + "\',\'" + rfidRow[2] + "\',\'" + rfidRow[3] + "\',\'"+ date + "\',\'" + time + "\',1)")
+                        cur.execute('INSERT INTO "MyApp_entities" ("name","houseNo","mobileNo","rfid","carNo","vehicleClass","date","time","visibility") VALUES (\'' + userRow[1] + '\',\'' + userRow[3] + '\',\'' + userRow[6] + '\',\'' + rfidRow[1] + '\',\'' + rfidRow[2] + '\',\'' + rfidRow[3] + '\',\''+ date + '\',\'' + time + '\',1)')
         
         conn.commit()
 
