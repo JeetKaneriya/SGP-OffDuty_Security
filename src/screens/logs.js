@@ -43,7 +43,7 @@ const Logs = props => {
   };
 
   axios
-    .get('https://e60ef4f7550b.ngrok.io/feed/')
+    .get('https://offdutysecurity.herokuapp.com/feed/')
     .then(function (response) {
       setEntities(JSON.parse(response.request.response).entities);
     })
