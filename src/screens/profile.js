@@ -19,7 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from '../styles/profile-styles';
 import Menu from '../components/menu';
 
-const launchCam = async setImage => {
+const launchCam = async (setImage, user) => {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -44,9 +44,13 @@ const launchCam = async setImage => {
       };
 
       ImagePicker.launchCamera(options, response => {
-        if (response.assets[0].uri !== undefined) {
-          console.log(response);
-          setImage(response.assets[0].uri);
+        try {
+          if (response.assets[0].uri !== undefined) {
+            console.log(response);
+            setImage(response.assets[0].uri);
+          }
+        } catch {
+          setImage('https://0f7ee737ce12.ngrok.io' + user.pic);
         }
       });
     } else {
@@ -57,7 +61,7 @@ const launchCam = async setImage => {
   }
 };
 
-const launchGal = setImage => {
+const launchGal = (setImage, user) => {
   var options = {
     storageOptions: {
       skipBackup: true,
@@ -66,8 +70,12 @@ const launchGal = setImage => {
   };
 
   ImagePicker.launchImageLibrary(options, response => {
-    if (response.assets[0].uri !== undefined) {
-      setImage(response.assets[0].uri);
+    try {
+      if (response.assets[0].uri !== undefined) {
+        setImage(response.assets[0].uri);
+      }
+    } catch {
+      setImage('https://0f7ee737ce12.ngrok.io' + user.pic);
     }
   });
 };
@@ -193,7 +201,7 @@ const Profile = props => {
             }}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => launchCam(setImage)}>
+              onPress={() => launchCam(setImage, user)}>
               <View
                 style={{
                   width: width * 0.3,
@@ -208,7 +216,7 @@ const Profile = props => {
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => launchGal(setImage)}>
+              onPress={() => launchGal(setImage, user)}>
               <View
                 style={{
                   width: width * 0.3,
