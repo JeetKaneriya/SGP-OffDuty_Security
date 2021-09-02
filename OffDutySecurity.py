@@ -3,21 +3,19 @@ from win32api import GetSystemMetrics, error
 from datetime import datetime
 import psycopg2
 
+try:
+    conn = psycopg2.connect(
+        database="d77d0i79qgv23i",
+        user='edbavjnclwyaoi',
+        password='e3e15b5d5bed3f70c05ee5cca76a9c54106dc1188e566283dcfe7c2ebe3cf75e',
+        host='ec2-18-235-4-83.compute-1.amazonaws.com',
+        port= '5432'
+    )
+except:
+    print(error)
 
 def callback(entity, entry0):
     if(len(entity.get()) >= 10):
-
-        try:
-            conn = psycopg2.connect(
-                database="d77d0i79qgv23i",
-                user='edbavjnclwyaoi',
-                password='e3e15b5d5bed3f70c05ee5cca76a9c54106dc1188e566283dcfe7c2ebe3cf75e',
-                host='ec2-18-235-4-83.compute-1.amazonaws.com',
-                port= '5432'
-            )
-        except:
-            print(error)
-
         cur = conn.cursor()
         cur.execute('SELECT * FROM "MyApp_rfiddetails"')
         rfidRows = cur.fetchall()
@@ -36,9 +34,7 @@ def callback(entity, entry0):
                         cur.execute('INSERT INTO "MyApp_entities" ("name","houseNo","mobileNo","rfid","carNo","vehicleClass","date","time","visibility") VALUES (\'' + userRow[1] + '\',\'' + userRow[3] + '\',\'' + userRow[6] + '\',\'' + rfidRow[1] + '\',\'' + rfidRow[2] + '\',\'' + rfidRow[3] + '\',\''+ date + '\',\'' + time + '\',1)')
         
         conn.commit()
-
         entry0.delete(0, END)
-        conn.close()
 
 
 window = Tk()
@@ -84,3 +80,5 @@ entry0.place(
 
 window.resizable(False, False)
 window.mainloop()
+
+conn.close()
